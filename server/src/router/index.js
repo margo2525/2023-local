@@ -7,6 +7,7 @@ const checkToken = require('../middlewares/checkToken');
 const validators = require('../middlewares/validators');
 const chatController = require('../controllers/chatController');
 const upload = require('../utils/fileUpload');
+const contestsRouter = require('./contestRouter');
 const router = express.Router();
 
 router.post(
@@ -23,29 +24,34 @@ router.post(
   checkToken.checkToken,
   contestController.dataForContest
 );
+router.use('/contests', contestsRouter);
 
-router.post(
-  '/pay',
-  checkToken.checkToken,
-  basicMiddlewares.onlyForCustomer,
-  upload.uploadContestFiles,
-  basicMiddlewares.parseBody,
-  validators.validateContestCreation,
-  userController.payment
-);
+// POST /contests
+// router.post(
+//   '/pay',
+//   checkToken.checkToken,
+//   basicMiddlewares.onlyForCustomer,
+//   upload.uploadContestFiles,
+//   basicMiddlewares.parseBody,
+//   validators.validateContestCreation,
+//   userController.payment
+// );
 
-router.post(
-  '/getCustomersContests',
-  checkToken.checkToken,
-  contestController.getCustomersContests
-);
+//router.post(
+//  '/getCustomersContests',
+//  checkToken.checkToken,
+//  contestController.getCustomersContests
+//);
 
-router.get(
-  '/getContestById',
-  checkToken.checkToken,
-  basicMiddlewares.canGetContest,
-  contestController.getContestById
-);
+//router.get(
+//  '/getContestById',
+//  checkToken.checkToken,
+//  basicMiddlewares.canGetContest,
+//  contestController.getContestById
+//);
+// PUBLIC ENDPOINT
+// GET offers?limit=10&offset=0
+router.get('/offers', contestController.getAllOffers);
 
 router.post(
   '/getAllContests',

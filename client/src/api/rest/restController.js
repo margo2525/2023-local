@@ -1,5 +1,5 @@
 import http from '../interceptor';
-
+import queryString from 'query-string';
 export const registerRequest = data => http.post('registration', data);
 export const loginRequest = data => http.post('login', data);
 export const getUser = () => http.post('getUser');
@@ -8,7 +8,7 @@ export const setNewOffer = data => http.post('setNewOffer', data);
 export const setOfferStatus = data => http.post('setOfferStatus', data);
 export const downloadContestFile = data =>
   http.get(`downloadFile/${data.fileName}`);
-export const payMent = data => http.post('pay', data.formData);
+export const payMent = data => http.post('contests', data.formData);
 export const changeMark = data => http.post('changeMark', data);
 export const getPreviewChat = () => http.post('getPreview');
 export const getDialog = data => http.post('getChat', data);
@@ -25,17 +25,23 @@ export const deleteCatalog = data => http.post('deleteCatalog', data);
 export const removeChatFromCatalog = data =>
   http.post('removeChatFromCatalog', data);
 export const changeCatalogName = data => http.post('updateNameCatalog', data);
+//export const getCustomersContests = data =>
+// http.post(
+//  'getCustomersContests',
+// { limit: data.limit, offset: data.offset },
+// {
+//   headers: {
+//    status: data.contestStatus,
+//  },
+//}
+//);
+// GET //contests/byCustomer?limit=...&offset=...&status=...
+//export const getCustomersContests = ({ limit, offset, contestStatus }) =>
+// http.get(
+//  `contests/byCustomer?limit=${limit}&offset=${offset}&status=${contestStatus}`
+//);
 export const getCustomersContests = data =>
-  http.post(
-    'getCustomersContests',
-    { limit: data.limit, offset: data.offset },
-    {
-      headers: {
-        status: data.contestStatus,
-      },
-    }
-  );
-
+  http.get(`contests/byCustomer?${queryString.stringify(data)}`);
 export const getActiveContests = ({
   offset,
   limit,
@@ -55,9 +61,5 @@ export const getActiveContests = ({
     ownEntries,
   });
 
-export const getContestById = data =>
-  http.get('getContestById', {
-    headers: {
-      contestId: data.contestId,
-    },
-  });
+export const getContestById = ({ contestId }) =>
+  http.get(`contests/${contestId}`);
