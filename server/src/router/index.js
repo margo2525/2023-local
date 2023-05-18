@@ -68,12 +68,12 @@ router.get(
   contestController.downloadFile
 );
 
-router.post(
-  '/updateContest',
-  checkToken.checkToken,
-  upload.updateContestFile,
-  contestController.updateContest
-);
+//router.post(
+//  '/updateContest',
+//  checkToken.checkToken,
+//  upload.updateContestFile,
+//  contestController.updateContest
+//);
 
 router.post(
   '/setNewOffer',

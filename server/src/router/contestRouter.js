@@ -33,5 +33,10 @@ contestsRouter.get(
   basicMiddlewares.canGetContest,
   contestController.getContestById
 );
-
+contestsRouter.patch(
+  '/:contestId',
+  checkToken.checkToken,
+  upload.updateContestFile,
+  contestController.updateContest
+);
 module.exports = contestsRouter;
