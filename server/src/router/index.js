@@ -53,12 +53,12 @@ router.use('/contests', contestsRouter);
 // GET offers?limit=10&offset=0
 router.get('/offers', contestController.getAllOffers);
 
-router.post(
-  '/getAllContests',
-  checkToken.checkToken,
-  basicMiddlewares.onlyForCreative,
-  contestController.getContests
-);
+//router.post(
+//  '/getAllContests',
+//  checkToken.checkToken,
+//  basicMiddlewares.onlyForCreative,
+//  contestController.getContests
+//);
 
 router.post('/getUser', checkToken.checkAuth);
 

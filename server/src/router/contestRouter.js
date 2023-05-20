@@ -39,4 +39,16 @@ contestsRouter.patch(
   upload.updateContestFile,
   contestController.updateContest
 );
+contestsRouter.post(
+  '/getAllContests',
+  checkToken.checkToken,
+  queryParser({
+    parseNull: true,
+    parseUndefined: true,
+    parseBoolean: true,
+    parseNumber: true,
+  }),
+  basicMiddlewares.onlyForCreative,
+  contestController.getContests
+);
 module.exports = contestsRouter;
